@@ -1,4 +1,4 @@
-const BASE_URL = "https://heartwiseconnection-1.onrender.com/api/v1"
+const BASE_URL = "https://heartwiseconnection.onrender.com/api/v1"
 
 // AUTH ENDPOINTS
 export const endpoints = {
