@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const pdfkit = require('pdfkit'); // Import pdfkit library
 const { validationResult } = require('express-validator');
 
+
 exports.generateReportAndSave = async (req, res) => {
     try {
         // Validate request body
@@ -23,6 +24,7 @@ exports.generateReportAndSave = async (req, res) => {
                 message: 'Please provide both email and password.',
             });
         }
+        console.log("data", data);
 
         // Find user by email
         const user = await User.findOne({ email });
@@ -79,6 +81,8 @@ exports.generateReportAndSave = async (req, res) => {
             res.status(200).json({ success: true, message: 'PDF generated and uploaded successfully.' });
         }).end(pdfBuffer);
 
+        console.log("cloudinaryResponse", cloudinaryResponse);
+
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ success: false, message: 'An error occurred.' });
@@ -87,16 +91,81 @@ exports.generateReportAndSave = async (req, res) => {
 
 
 
+exports.viewReports = async (req, res) => {
+    try {
+        const { patient_id } = req.body;
+
+        console.log("patient_id is :", patient_id);
+
+        // Find the user by their ID
+        const user = await User.findById(patient_id);
+
+        // Check if the user exists
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        // Check if the user is a patient or doctor
+        if (user.accountType === 'Doctor') {
+            // If the user is a doctor, they can view reports of appointed patients
+            const appointedPatients = await User.find({ _id: { $in: user.appointedPatient } });
+
+            // Return the appointed patients and their reports
+            return res.status(200).json({ success: true, data: appointedPatients });
+        } else if (user.accountType === 'Patient') {
+            // If the user is a patient, they can view their own reports
+            return res.status(200).json({ success: true, data: user.reports });
+        } else {
+            // For other user types (e.g., Admin), return an error
+            return res.status(403).json({ success: false, message: 'Unauthorized access' });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
 
 
 
-// exports.upload_report_doc = async (req, res) => {
 
-//     // this will let the user upload a existing report present in doc
-// }
+exports.viewPatientReports = async (req, res) => {
+    try {
+        const { doctorId, patientId } = req.body;
 
-// exports.view_reports = async (req, res) => {
-//     // this will let a appointed doctor see the patient report
+        // Check if doctorId and patientId are provided
+        if (!doctorId || !patientId) {
+            return res.status(400).json({ success: false, message: "Doctor ID and Patient ID are required" });
+        }
 
-//     // this should also let the patient see their own reports
-// }
+        // Find the doctor by their ID in the database
+        const doctor = await User.findById(doctorId);
+
+        // Check if the doctor exists and is of type "Doctor"
+        if (!doctor || doctor.accountType !== "Doctor") {
+            return res.status(404).json({ success: false, message: "Doctor not found" });
+        }
+
+        // Check if the patient is appointed to this doctor
+        const isPatientAppointed = doctor.appointedPatients.includes(patientId);
+        if (!isPatientAppointed) {
+            return res.status(404).json({ success: false, message: "Patient not appointed to this doctor" });
+        }
+
+        // Find the patient by their ID in the database
+        const patient = await User.findById(patientId);
+
+        // Check if the patient exists
+        if (!patient || patient.accountType !== "Patient") {
+            return res.status(404).json({ success: false, message: "Patient not found" });
+        }
+
+        // You can return patient's record or other relevant information here
+        return res.status(200).json({ success: true, patient });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+
+

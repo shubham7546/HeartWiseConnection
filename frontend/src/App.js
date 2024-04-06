@@ -27,6 +27,8 @@ import CourseDetails from "./pages/CourseDetails";
 import ViewCourse from "./pages/ViewCourse";
 import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 import Instructor from "./components/core/Dashboard/InstructorDashboard/Instructor";
+import RequestedAppointments from "./components/core/Dashboard/RequestedAppointments";
+import ExploreDoctors from "./components/core/Dashboard/ExploreDoctors";
 
 
 
@@ -117,6 +119,8 @@ function App() {
               <>
                 <Route path="cart" element={<Cart />} />
                 <Route path="enrolled-courses" element={<EnrolledCourses />} />
+                <Route path="requested-appointments" element={<RequestedAppointments />} />
+                <Route path="explore-doctors" element={<ExploreDoctors />} />
               </>
             )
           }

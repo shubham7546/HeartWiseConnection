@@ -78,3 +78,12 @@ export const appointmentEndpoints = {
   VIEW_APPOINTED_PATIENT_API: BASE_URL + "/appointments/view_appointed_patient",
   CONFIRM_APPOINTMENT_API: BASE_URL + "/appointments/confirm_appointment",
 }
+
+export const exploreDoc = {
+  EXPLOREDOC_API: BASE_URL + "/auth/viewDoc",
+
+}
+
+export const reportsEndpoints = {
+  VIEWREPORTS_API: BASE_URL + "/reports/viewReports",
+}

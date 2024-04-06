@@ -48,7 +48,7 @@ router.post("/reset-password-token", resetPasswordToken)
 // Route for resetting user's password after verification
 router.post("/reset-password", resetPassword)
 
-router.get('/viewDoc', auth, isPatient, viewDoc)
+router.get('/viewDoc', viewDoc)
 
 
 

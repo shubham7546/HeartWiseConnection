@@ -2,8 +2,9 @@ const User = require("../models/User");
 
 exports.req_appointment = async (req, res) => {
     try {
-        // Extract the doctorId from the request body
-        const { doctorId, patientId } = req.body;
+        // Extract the email and doctorId from the request body
+        const { email } = req.user;
+        const { doctorId } = req.body;
 
         // Check if doctorId is provided
         if (!doctorId) {
@@ -12,25 +13,21 @@ exports.req_appointment = async (req, res) => {
 
         // Find the doctor by their ID in the database
         const doctor = await User.findById(doctorId);
-        const patient = await User.findById(patientId);
-
-        // Check if the doctor exists and is of type "Doctor"
         if (!doctor || doctor.accountType !== "Doctor") {
             return res.status(404).json({ success: false, message: "Doctor not found" });
         }
 
-        // Create the appointment request
-        // const appointmentRequest = {
-        //     doctor: doctorId,
-        //     patient: req.body.doctorId, // Assuming the patient's ID is stored in req.user
-        //     // Optionally, you can add more fields like appointmentDate and reason here
-        // };
+        // Find the patient by email in the database
+        const patient = await User.findOne({ email: email });
+        if (!patient || patient.accountType !== "Patient") {
+            return res.status(404).json({ success: false, message: "Patient not found" });
+        }
 
         // Push the appointment request to the doctor's requestedPatients array
-        doctor.requestedPatients.push(patientId);
+        doctor.requestedPatients.push(patient._id);
         await doctor.save();
 
-        // Push the doctor's ID to the patient's requestedDoctor array
+        // Push the doctor's ID to the patient's requestedDoctors array
         patient.requestedDoctors.push(doctorId);
         await patient.save();
 
@@ -40,6 +37,7 @@ exports.req_appointment = async (req, res) => {
         return res.status(500).json({ success: false, message: "Internal server error" });
     }
 };
+
 
 // this will let a doctor confirm reqested appointment with a patient
 
@@ -110,7 +108,7 @@ exports.confirm_appointment = async (req, res) => {
 exports.view_appointed_doctors = async (req, res) => {
     try {
         // Find the patient by their ID in the database and populate the appointedDoctors field
-        const patient = await User.findById(req.user.id)
+        const patient = await User.findById(req.body.patientId)
             .populate({
                 path: 'appointedDoctors',
                 select: '-password', // Exclude the password field from the populated data
@@ -137,7 +135,7 @@ exports.view_appointed_doctors = async (req, res) => {
 exports.view_appointed_patient = async (req, res) => {
     try {
         // Find the doctor by their ID in the database and populate the appointedPatients field
-        const doctor = await User.findById(req.user.id)
+        const doctor = await User.findById(req.body.doctorId)
             .populate({
                 path: 'appointedPatients',
                 select: '-password', // Exclude the password field from the populated data

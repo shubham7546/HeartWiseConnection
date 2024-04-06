@@ -2,6 +2,8 @@ const User = require("../models/User");
 
 exports.viewDoc = async (req, res) => {
     try {
+
+        console.log("inside viewdocs")
         // Find all users with accountType "Doctor" and populate only necessary fields
         const doctors = await User.find({ accountType: "Doctor" })
             .select("-password") // Exclude the password field
