@@ -1,10 +1,10 @@
 const User = require("../models/User");
 
-exports.viewDoc = async (req, res) => {
+exports.ExploreDoc = async (req, res) => {
     try {
-        console.log("inside viewdocs");
+        // console.log("inside viewdocs");
         const { email } = req.user;
-        console.log("patient.requestedDoctors", email)
+        // console.log("patient.requestedDoctors", email)
 
         // Find the patient by their email
         const patient = await User.findOne({ email });

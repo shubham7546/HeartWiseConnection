@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { apiConnector } from '../../../services/apiconnector';
 import { useSelector } from 'react-redux';

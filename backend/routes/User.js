@@ -17,7 +17,7 @@ const {
 } = require("../controllers/ResetPassword")
 
 const { auth, isPatient } = require("../middlewares/auth")
-const { viewDoc } = require("../controllers/exploreDoc")
+const { ExploreDoc } = require("../controllers/ExploreDoc")
 
 
 // Routes for Login, Signup, and Authentication
@@ -48,7 +48,7 @@ router.post("/reset-password-token", resetPasswordToken)
 // Route for resetting user's password after verification
 router.post("/reset-password", resetPassword)
 
-router.get('/viewDoc', auth, isPatient, viewDoc)
+router.get('/viewDoc', auth, isPatient, ExploreDoc)
 
 
 

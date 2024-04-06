@@ -9,7 +9,7 @@ import { NavbarLinks } from "../../data/navbar-links";
 import { ACCOUNT_TYPE } from "../../utils/constants";
 import ProfileDropdown from "../core/Auth/ProfileDropDown";
 
-const logo = "https://res.cloudinary.com/dfrw9elrw/image/upload/v1712244497/tfsjtpz5jx7bfvpeumpo.png";
+const logo = "https://i.ibb.co/txjwyQy/Whats-App-Image-2024-04-06-at-00-07-24-636605ad-removebg-preview-1.png";
 
 function Navbar() {
   const { token } = useSelector((state) => state.auth);
@@ -53,7 +53,7 @@ function Navbar() {
           </ul>
 
           {/* to contain ui of ai models */}
-          {/* <div onClick={() => { navigate("/our-technologies") }}> our technologies</div> */}
+          <div> our technologies</div>
         </nav>
         {/* Login / Signup / Dashboard */}
         <div className="hidden items-center gap-x-4 md:flex">
@@ -69,6 +69,7 @@ function Navbar() {
                   Sign up
                 </button>
               </Link>
+
             </>
           )}
           {token !== null && (
