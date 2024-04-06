@@ -70,3 +70,11 @@ export const settingsEndpoints = {
   CHANGE_PASSWORD_API: BASE_URL + "/auth/changepassword",
   DELETE_PROFILE_API: BASE_URL + "/profile/deleteProfile",
 }
+
+
+export const appointmentEndpoints = {
+  REQ_APPOINTMENT_API: BASE_URL + "/appointments/req_appointment",
+  VIEW_APPOINTED_DOCTORS_API: BASE_URL + "/appointments/view_appointed_doctors",
+  VIEW_APPOINTED_PATIENT_API: BASE_URL + "/appointments/view_appointed_patient",
+  CONFIRM_APPOINTMENT_API: BASE_URL + "/appointments/confirm_appointment",
+}
