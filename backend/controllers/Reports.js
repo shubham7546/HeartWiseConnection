@@ -91,32 +91,59 @@ exports.generateReportAndSave = async (req, res) => {
 
 
 
+// exports.viewReports = async (req, res) => {
+//     try {
+//         const { email } = req.user;
+
+//         console.log("patient_id is :", patient_id);
+
+//         // Find the user by their ID
+//         const user = await User.findById(patient_id);
+
+//         // Check if the user exists
+//         if (!user) {
+//             return res.status(404).json({ success: false, message: 'User not found' });
+//         }
+
+//         // Check if the user is a patient or doctor
+//         if (user.accountType === 'Doctor') {
+//             // If the user is a doctor, they can view reports of appointed patients
+//             const appointedPatients = await User.find({ _id: { $in: user.appointedPatient } });
+
+//             // Return the appointed patients and their reports
+//             return res.status(200).json({ success: true, data: appointedPatients });
+//         } else if (user.accountType === 'Patient') {
+//             // If the user is a patient, they can view their own reports
+//             return res.status(200).json({ success: true, data: user.reports });
+//         } else {
+//             // For other user types (e.g., Admin), return an error
+//             return res.status(403).json({ success: false, message: 'Unauthorized access' });
+//         }
+//     } catch (error) {
+//         console.error('Error:', error);
+//         return res.status(500).json({ success: false, message: 'Internal server error' });
+//     }
+// };
+
 exports.viewReports = async (req, res) => {
     try {
-        const { patient_id } = req.body;
+        const { email } = req.user;
+        console.log("email", email);
+        console.log("req.user", req.user);
 
-        console.log("patient_id is :", patient_id);
+        const user = await User.findOne({ email });
 
-        // Find the user by their ID
-        const user = await User.findById(patient_id);
-
-        // Check if the user exists
         if (!user) {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
 
-        // Check if the user is a patient or doctor
         if (user.accountType === 'Doctor') {
-            // If the user is a doctor, they can view reports of appointed patients
-            const appointedPatients = await User.find({ _id: { $in: user.appointedPatient } });
-
-            // Return the appointed patients and their reports
+            const appointedPatients = await User.find({ _id: { $in: user.appointedPatients } })
+                .select('firstName lastName reports'); // Only select necessary fields
             return res.status(200).json({ success: true, data: appointedPatients });
         } else if (user.accountType === 'Patient') {
-            // If the user is a patient, they can view their own reports
             return res.status(200).json({ success: true, data: user.reports });
         } else {
-            // For other user types (e.g., Admin), return an error
             return res.status(403).json({ success: false, message: 'Unauthorized access' });
         }
     } catch (error) {
@@ -124,6 +151,7 @@ exports.viewReports = async (req, res) => {
         return res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
+
 
 
 

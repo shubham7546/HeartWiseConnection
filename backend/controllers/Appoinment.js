@@ -107,8 +107,9 @@ exports.confirm_appointment = async (req, res) => {
 
 exports.view_appointed_doctors = async (req, res) => {
     try {
+        const { email } = req.user;
         // Find the patient by their ID in the database and populate the appointedDoctors field
-        const patient = await User.findById(req.body.patientId)
+        const patient = await User.findOne({ email })
             .populate({
                 path: 'appointedDoctors',
                 select: '-password', // Exclude the password field from the populated data

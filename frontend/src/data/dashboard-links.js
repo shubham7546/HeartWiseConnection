@@ -17,7 +17,7 @@ export const sidebarLinks = [
     id: 3,
     name: "Requested appointments",
     path: "/dashboard/requested-appointments",
-    type: ACCOUNT_TYPE.PATIENT,
+    type: ACCOUNT_TYPE.DOCTOR,
     icon: "VscVm",
   },
   {
@@ -27,13 +27,13 @@ export const sidebarLinks = [
     type: ACCOUNT_TYPE.DOCTOR,
     icon: "VscAdd",
   },
-  {
-    id: 5,
-    name: "Sent Appointments Request",
-    path: "/dashboard/sent-appointments-request",
-    type: ACCOUNT_TYPE.PATIENT,
-    icon: "VscMortarBoard",
-  },
+  // {
+  //   id: 5,
+  //   name: "Sent Appointments Request",
+  //   path: "/dashboard/sent-appointments-request",
+  //   type: ACCOUNT_TYPE.PATIENT,
+  //   icon: "VscMortarBoard",
+  // },
   {
     id: 6,
     name: "confirmed appointments",

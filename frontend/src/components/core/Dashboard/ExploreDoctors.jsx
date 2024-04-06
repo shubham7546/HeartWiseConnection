@@ -1,11 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { apiConnector } from '../../../services/apiconnector';
-import { exploreDoc } from '../../../services/apis';
-import Card from './DoctorCard'; // Corrected import statement
+import { appointmentEndpoints, exploreDoc } from '../../../services/apis';
+import DoctorCard from './DoctorCard';
+import { useSelector } from 'react-redux';
 
 const ExploreDoctors = () => {
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { token } = useSelector((state) => state.auth);
+
+
+
+    const sendRequest = async (doc_id) => {
+        console.log("token le lo:", token);
+        console.log("appointmentEndpoints.REQ_APPOINTMENT_API", appointmentEndpoints.REQ_APPOINTMENT_API)
+        try {
+            const response = await apiConnector("POST", appointmentEndpoints.REQ_APPOINTMENT_API, {
+                doctorId: doc_id
+            }, {
+                Authorization: `Bearer ${token}`,
+            });
+
+            if (response?.data?.success) {
+                console.log("response", response);
+            } else {
+                console.log("Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+        setLoading(false);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,7 +57,7 @@ const ExploreDoctors = () => {
                 <p className="text-white">Loading...</p>
             ) : (
                 doctors.map((doctor, index) => (
-                    <Card key={index} fname={doctor.firstName} lname={doctor.lastName} />
+                    <DoctorCard key={index} fname={doctor.firstName} lname={doctor.lastName} sendRequest={() => sendRequest(doctor._id)} />
                 ))
             )}
         </div>

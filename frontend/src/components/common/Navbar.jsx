@@ -5,8 +5,10 @@ import { Link, useLocation } from "react-router-dom";
 
 // import logo from "../../assets/Logo/heartwiseconnection.png";
 import { NavbarLinks } from "../../data/navbar-links";
+// eslint-disable-next-line no-unused-vars
 import { ACCOUNT_TYPE } from "../../utils/constants";
 import ProfileDropdown from "../core/Auth/ProfileDropDown";
+
 const logo = "https://res.cloudinary.com/dfrw9elrw/image/upload/v1712244497/tfsjtpz5jx7bfvpeumpo.png";
 
 function Navbar() {
@@ -49,6 +51,8 @@ function Navbar() {
               </li>
             ))}
           </ul>
+
+          <div onClick={() => { navigate("/our-technologies") }}> our technologies</div>
         </nav>
         {/* Login / Signup / Dashboard */}
         <div className="hidden items-center gap-x-4 md:flex">

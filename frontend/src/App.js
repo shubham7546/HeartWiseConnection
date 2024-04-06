@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./App.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./pages/Home"
@@ -29,6 +30,8 @@ import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 import Instructor from "./components/core/Dashboard/InstructorDashboard/Instructor";
 import RequestedAppointments from "./components/core/Dashboard/RequestedAppointments";
 import ExploreDoctors from "./components/core/Dashboard/ExploreDoctors";
+import ViewPatientReports from "./components/core/Dashboard/ViewPatientReports";
+import ViewAppointedDoctors from "./components/core/Dashboard/ViewAppointedDoctors";
 
 
 
@@ -121,6 +124,8 @@ function App() {
                 <Route path="enrolled-courses" element={<EnrolledCourses />} />
                 <Route path="requested-appointments" element={<RequestedAppointments />} />
                 <Route path="explore-doctors" element={<ExploreDoctors />} />
+                <Route path="View-your-reports" element={<ViewPatientReports />} />
+                <Route path="confirmed-appointments-with-doctors" element={<ViewAppointedDoctors />} />
               </>
             )
           }

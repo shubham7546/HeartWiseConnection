@@ -10,10 +10,13 @@ exports.auth = async (req, res, next) => {
 	try {
 		// Extracting JWT from request cookies, body or header
 		console.log("inside auth")
+		console.log("req.header", req.header("Authorization"))
 		const token =
 			req.cookies.token ||
 			req.body.token ||
 			req.header("Authorization").replace("Bearer ", "");
+
+
 
 		// If JWT is missing, return 401 Unauthorized response
 		if (!token) {
