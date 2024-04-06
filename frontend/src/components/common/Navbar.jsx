@@ -52,7 +52,8 @@ function Navbar() {
             ))}
           </ul>
 
-          <div onClick={() => { navigate("/our-technologies") }}> our technologies</div>
+          {/* to contain ui of ai models */}
+          {/* <div onClick={() => { navigate("/our-technologies") }}> our technologies</div> */}
         </nav>
         {/* Login / Signup / Dashboard */}
         <div className="hidden items-center gap-x-4 md:flex">
