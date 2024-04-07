@@ -43,7 +43,7 @@ exports.req_appointment = async (req, res) => {
 
 exports.confirm_appointment = async (req, res) => {
     try {
-        const { patientId, doctorId } = req.body;
+        const { email } = req.user;
 
         console.log("inside confirming appointment");
         // Check if patientId and doctorId are provided
