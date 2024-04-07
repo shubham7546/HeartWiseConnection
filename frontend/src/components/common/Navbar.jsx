@@ -22,10 +22,10 @@ function Navbar() {
 
   return (
     <div
-      className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${location.pathname !== "/" ? "bg-richblack-800" : ""
+      className={`flex h-[110px] items-center justify-center border-b-[1px] border-b-richblack-700 ${location.pathname !== "/" ? "bg-richblack-800" : ""
         } transition-all duration-200`}
     >
-      <div className="flex w-11/12 max-w-maxContent items-center justify-between">
+      <div className="flex w-11/12 max-w-content h-[100px] items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex-shrink-0">
           <img
@@ -33,10 +33,11 @@ function Navbar() {
             alt="Logo"
             className="h-auto w-[190px]"
             loading="lazy"
+            style={{ height: '200px' }}
           />
         </Link>
         {/* Navigation links */}
-        <nav className="hidden md:block">
+        <nav className="hidden md:block  ">
           <ul className="flex gap-x-6 text-richblack-25">
             {NavbarLinks.map((link, index) => (
               <li key={index}>
@@ -53,7 +54,7 @@ function Navbar() {
           </ul>
 
           {/* to contain ui of ai models */}
-          <div> our technologies</div>
+
         </nav>
         {/* Login / Signup / Dashboard */}
         <div className="hidden items-center gap-x-4 md:flex">

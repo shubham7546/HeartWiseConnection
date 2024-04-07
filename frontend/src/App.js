@@ -32,6 +32,7 @@ import RequestedAppointments from "./components/core/Dashboard/RequestedAppointm
 import ExploreDoctors from "./components/core/Dashboard/ExploreDoctors";
 import ViewPatientReports from "./components/core/Dashboard/ViewPatientReports";
 import ViewAppointedDoctors from "./components/core/Dashboard/ViewAppointedDoctors";
+import OurTech from "./components/common/OurTech";
 
 
 
@@ -101,7 +102,8 @@ function App() {
 
           }
         />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/our-technologies" element={<OurTech />} />
+
 
         <Route
           path="dashboard"

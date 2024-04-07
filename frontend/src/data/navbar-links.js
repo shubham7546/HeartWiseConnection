@@ -3,10 +3,10 @@ export const NavbarLinks = [
     title: "Home",
     path: "/",
   },
-  // {
-  //   title: "Catalog",
-  //   // path: '/catalog',
-  // },
+  {
+    title: "our technologies",
+    path: '/our-technologies',
+  },
   {
     title: "About Us",
     path: "/about",

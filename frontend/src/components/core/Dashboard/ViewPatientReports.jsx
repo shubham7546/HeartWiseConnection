@@ -42,11 +42,13 @@ const ViewPatientReports = () => {
             ) : error ? (
                 <p>{error}</p>
             ) : (
-                <div>
+                <div className="bg-rich-black pt-4 pb-6 px-4 ">
                     {reports?.data.data.map((url, index) => (
-                        <div key={index} className="doctor-item">
-
-                            <button onClick={() => openReportUrl(url)}>Open Report</button>
+                        <div key={index} className="doctor-item text-white mb-10 flex justify-around">
+                            <span className="font-bold text-xl">Report {index + 1}</span>
+                            <button onClick={() => openReportUrl(url)} className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                Open Report
+                            </button>
                         </div>
                     ))}
                 </div>
