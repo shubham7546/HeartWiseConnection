@@ -31,7 +31,7 @@ app.use(cookieParser());//to parse cookies that is coming from client
 //to let the client share resources with the server
 app.use(
 	cors({
-		origin: [https://heart-wise-connection-gegl.vercel.app , 'https://disease-app-gemini.streamlit.app', "http://localhost:3000"],
+		origin: ["https://heart-wise-connection-gegl.vercel.app" , 'https://disease-app-gemini.streamlit.app', "http://localhost:3000"],
 		credentials: true,
 	})
 )
