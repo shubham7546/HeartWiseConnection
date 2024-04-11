@@ -29,20 +29,13 @@ app.use(express.json());//to parse json content coming from client to object
 app.use(cookieParser());//to parse cookies that is coming from client
 
 //to let the client share resources with the server
-//to let the client share resources with the server
-// app.use(
-// 	cors({
-// 		origin: [process.env.CLIENT_URL, 'https://disease-app-gemini.streamlit.app', "http://localhost:3000"],
-// 		credentials: true,
-// 	})
-// )
-
 app.use(
 	cors({
-		origin: process.env.CLIENT_URL,
+		origin: [https://heart-wise-connection-gegl.vercel.app , 'https://disease-app-gemini.streamlit.app', "http://localhost:3000"],
 		credentials: true,
 	})
 )
+
 
 
 // enables handling file uploads in Express.js applications.
